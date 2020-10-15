@@ -1,0 +1,45 @@
+template <typename T>
+void LinkedList<T>::insertOrdered(const T& newData) {
+  
+  Node* NODER = new Node(newData);
+  
+  if (!head_) {
+    // If empty, insert as the only item as both head and tail.
+    // The Node already has next and prev set to nullptr by default.
+    head_ = NODER;
+    tail_ = NODER;}
+    
+  else if ( head_-> data >= NODER ->data){
+    
+    NODER ->next = head_;
+    head_ ->prev = NODER;
+    head_ = NODER; 
+  }
+  
+  else
+  {
+    Node * track = head_;
+    while((track ->next != nullptr) && (NODER ->data) >= (track->next ->data)){
+      
+      track = track ->next;
+    }
+    
+    if ((track ->next) == nullptr){
+      
+      track ->next = NODER; 
+      NODER ->prev = track; 
+      tail_ = NODER; 
+      track = nullptr;
+    }
+    else{
+      
+      NODER ->next = track ->next; 
+      track ->next ->prev = NODER; 
+      NODER ->prev = track; 
+      track ->next = NODER; 
+      track = NODER; 
+    }
+    
+  }
+  
+  size_ ++;}
