@@ -1,0 +1,85 @@
+
+template <typename T>
+LinkedList<T> LinkedList<T>::merge(const LinkedList<T>& other) const {
+
+  // You can't edit the original instance of LinkedList that is calling
+  // merge because the function is marked const, and the "other" input
+  // list is also marked const. However, here we'll make some convenient
+  // "working copies" of the two lists: "*this" refers to the current
+  // list object instance that is calling the merge member function, and
+  // "other" refers to the list that was passed as an argument:
+  LinkedList<T> left = *this;
+  LinkedList<T> right = other;
+
+  // So if this function was called as "A.merge(B)", then now, "left"
+  // is a temporary copy of the "A" and "right" is a temporary copy
+  // of the "B".
+  
+  // We will also create an empty list called "merged" where we can build
+  // the final result we want. This is what we will return at the end of
+  // the function.
+  LinkedList<T> merged;
+  
+  Node* lefthead = left.head_;
+  Node* righthead = right.head_;
+  
+  if (!righthead&& !lefthead){
+    return merged;
+  }
+  
+  else if ( !lefthead && righthead){
+    while(righthead){
+      merged.pushBack(righthead->data);
+      righthead = righthead ->next; 
+      //size_ ++;
+    }
+  }
+  else if(!righthead && lefthead){
+    while(lefthead){
+      merged.pushBack(lefthead->data);
+      lefthead = lefthead ->next;
+      //size_ ++;
+    }
+  }
+  else{
+    
+    while(lefthead&&righthead){
+      
+      if((lefthead->data)>(righthead->data)){
+        merged.pushBack(righthead->data);
+        //size_ ++;
+        righthead = righthead->next;
+      }
+      else if ((lefthead->data)<(righthead->data)){
+        merged.pushBack(lefthead->data);
+        //size_++;
+        lefthead = lefthead ->next;
+      }
+      else {
+        
+        merged.pushBack(lefthead->data);
+        merged.pushBack(righthead->data);
+        lefthead = lefthead ->next;
+        righthead = righthead ->next;
+        
+        //size_ ++;
+        //size_++;
+      }
+    }
+    
+    if (righthead){
+      while(righthead){
+        merged.pushBack(righthead->data);
+        righthead = righthead ->next;
+      }
+    }
+    
+     if (lefthead){
+      while(lefthead){
+        merged.pushBack(lefthead->data);
+        lefthead = lefthead ->next;
+      }
+  }}
+  
+  return merged;
+}
